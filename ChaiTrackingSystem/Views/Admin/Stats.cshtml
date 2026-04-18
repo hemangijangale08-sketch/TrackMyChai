@@ -1,0 +1,28 @@
+﻿@model System.Data.DataTable
+
+<h2>📊 TrackMyChai Stats</h2>
+@if (Model != null && Model.Rows.Count > 0)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>User Name</th>
+            <th>Drink</th>
+            <th>Cups</th>
+            <th>Status</th>
+        </tr>
+
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["Name"]</td>
+                <td>@row["DrinkType"]</td>
+                <td>@row["Cups"]</td>
+                <td>@row["Status"]</td>
+            </tr>
+        }
+    </table>
+}
+else
+ {
+    <p>No data found</p>
+}

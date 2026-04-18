@@ -1,0 +1,22 @@
+﻿@model System.Data.DataTable
+
+<h2>🏆 Top Chai Drinkers</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Total Cups</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["Name"]</td>
+                <td>@row["TotalCups"]</td>
+            </tr>
+        }
+    </tbody>
+</table>

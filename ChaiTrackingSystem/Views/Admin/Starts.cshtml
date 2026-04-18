@@ -1,0 +1,27 @@
+﻿<h2>Chai Analytics 📊</h2>
+
+<canvas id="chaiChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+fetch('/Admin/ChartData')
+.then(res => res.json())
+.then(data => {
+
+    let labels = data.map(x => x.label);
+    let values = data.map(x => x.value);
+
+    new Chart(document.getElementById('chaiChart'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Cups',
+                data: values
+            }]
+        }
+    });
+
+});
+</script>

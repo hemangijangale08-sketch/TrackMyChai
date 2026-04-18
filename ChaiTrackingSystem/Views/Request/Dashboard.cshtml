@@ -1,0 +1,50 @@
+﻿@model System.Data.DataTable
+
+<h3 class="mb-3">☕ Your Requests</h3>
+
+<a href="/Request/MyBill" class="btn btn-primary mb-3">
+    My Bill
+</a>
+
+
+<a href="/Request/Create" class="btn btn-success mb-3">+ New Request</a>
+
+<div class="mb-3">
+    <a href="/Request/History?type=daily" class="btn btn-primary">Daily</a>
+    <a href="/Request/History?type=weekly" class="btn btn-success">Weekly</a>
+    <a href="/Request/History?type=monthly" class="btn btn-warning">Monthly</a>
+</div>
+
+<table class="table table-hover shadow">
+    <thead class="table-dark">
+        <tr>
+            <th>Drink</th>
+            <th>Cups</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["DrinkType"]</td>
+                <td>@row["Cups"]</td>
+                <td>
+                    @if (row["Status"].ToString() == "Pending")
+                    {
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Completed</span>
+                    }
+                </td>
+                <td>
+                    @Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy HH:mm")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

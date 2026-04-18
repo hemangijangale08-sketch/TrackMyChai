@@ -1,0 +1,34 @@
+﻿@model System.Data.DataTable
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h3>Edit Request</h3>
+
+    @if (Model.Rows.Count > 0)
+    {
+        var row = Model.Rows[0];
+
+        <form method="post" action="/Request/Edit">
+
+            <input type="hidden" name="id" value="@row["Id"]" />
+
+            <div class="mb-3">
+                <label>Drink</label>
+                <input type="text" name="drinkType" value="@row["DrinkType"]" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Cups</label>
+                <input type="number" name="cups" value="@row["Cups"]" class="form-control" />
+            </div>
+
+            <button class="btn btn-primary">Update</button>
+
+        </form>
+    }
+
+</div>

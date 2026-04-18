@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chai Tracking System</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+        }
+
+        .nav-link {
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+        <div class="container">
+
+            <h3 style="display:flex; align-items:center; gap:10px;">
+                <img src="~/Content/chai-logo.png" style="height:40px; border-radius:10px;" />
+               
+            </h3>
+
+          
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    @if (Session["Role"] == null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Account/Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Account/Register">Register</a>
+                        </li>
+                    }
+
+                    @if (Session["Role"] != null && Session["Role"].ToString() == "User")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Request/Dashboard">Dashboard</a>
+                        </li>
+
+                    }
+
+
+                    @if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Stats">Analytics</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/TopUsers">Top Users</a>
+                        </li>
+                        <li class="nav-item">
+                              <a class="nav-link" href="/Admin/PeakTime">Peak Time</a>
+                        </li>
+                       
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/DepartmentStats">Departments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/AddAdmin">Add Admin</a>
+                        </li>
+                    }
+
+                    @if (Session["Role"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-danger fw-bold" href="/Account/Logout">Logout</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+
+    <footer class="text-center mt-5 mb-3 text-muted">
+        <small>© 2026 Chai Tracking System ☕</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

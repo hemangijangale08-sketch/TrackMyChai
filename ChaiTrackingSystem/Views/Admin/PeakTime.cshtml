@@ -1,0 +1,13 @@
+﻿<h2>⏰ Peak Chai Time</h2>
+
+<table class="table">
+    <tr><th>Hour</th><th>Orders</th></tr>
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            <td>@row["Hour"]:00</td>
+            <td>@row["Total"]</td>
+        </tr>
+    }
+</table>

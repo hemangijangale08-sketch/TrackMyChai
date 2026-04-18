@@ -1,0 +1,42 @@
+﻿@model System.Data.DataTable
+
+<h2>📊 Full Billing Report</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>User</th>
+        <th>Drink</th>
+        <th>Cups</th>
+        <th>Price</th>
+        <th>Date</th>
+    </tr>
+
+    @if (Model != null && Model.Rows.Count > 0)
+    {
+        int total = 0;
+
+        foreach (System.Data.DataRow row in Model.Rows)
+        {
+            total += Convert.ToInt32(row["Price"]);
+
+            <tr>
+                <td>@row["Name"]</td>
+                <td>@row["DrinkType"]</td>
+                <td>@row["Cups"]</td>
+                <td>₹ @row["Price"]</td>
+                <td>@Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+
+        <tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td colspan="2"><strong>₹ @total</strong></td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="5">No data found</td>
+        </tr>
+    }
+</table>

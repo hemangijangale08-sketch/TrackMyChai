@@ -1,0 +1,47 @@
+﻿@model System.Data.DataTable
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2 class="mb-4 text-center">📊 TrackMyChai - Department Stats</h2>
+
+    <div class="card shadow p-3">
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Department</th>
+                    <th>Total Requests</th>
+                    <th>Total Cups</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model != null && Model.Rows.Count > 0)
+                {
+                    foreach (System.Data.DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["Department"]</td>
+                            <td>@row["TotalRequests"]</td>
+                            <td>@row["TotalCups"]</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">
+                            No Data Found
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

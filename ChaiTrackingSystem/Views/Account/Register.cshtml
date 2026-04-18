@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+
+            <div class="card shadow p-4">
+                <h3 class="text-center mb-3">Create Account</h3>
+
+                <form method="post" action="/Account/Register">
+
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter Email" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Department</label>
+                        <input type="text" name="dept" class="form-control" placeholder="Enter Department" required />
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Register
+                    </button>
+
+                </form>
+
+                <p class="text-center mt-3">
+                    Already have an account?
+                    <a href="/Account/Login">Login</a>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>

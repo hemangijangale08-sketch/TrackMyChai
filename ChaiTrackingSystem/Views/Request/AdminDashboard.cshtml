@@ -1,0 +1,163 @@
+﻿@model System.Data.DataTable
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int totalRequests = Model != null ? Model.Rows.Count : 0;
+    int totalTea = 0;
+    int totalCoffee = 0;
+
+    if (Model != null)
+    {
+        foreach (System.Data.DataRow row in Model.Rows)
+        {
+            if (row["DrinkType"].ToString() == "Tea")
+            {
+                totalTea += Convert.ToInt32(row["Cups"]);
+            }
+
+            if (row["DrinkType"].ToString() == "Coffee")
+            {
+                totalCoffee += Convert.ToInt32(row["Cups"]);
+            }
+        }
+    }
+}
+
+<div class="container">
+
+    <h2 class="mb-4">📊 Admin Dashboard</h2>
+    <a href="/Request/AdminReport" class="btn btn-success mb-2">
+        Monthly Report
+    </a>
+
+    <a href="/Request/DownloadPDF" class="btn btn-danger mb-2">
+        User Invoice PDF
+    </a>
+
+    <!-- SUMMARY -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <h5>Total Requests</h5>
+                <h3 class="text-primary">@totalRequests</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <h5>☕ Tea Cups</h5>
+                <h3 class="text-success">@totalTea</h3>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow text-center p-3">
+                <h5>☕ Coffee Cups</h5>
+                <h3 class="text-warning">@totalCoffee</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="card shadow p-3">
+        <h5 class="mb-3">All Requests</h5>
+        <form method="get" action="/Request/AdminDashboard"
+              class="mb-3 d-flex justify-content-end">
+               <input type="text" name="search"
+                   class="form-control shadow"
+                   style="border-radius:25px; width:260px;"
+                   placeholder="🔍 Search user..." />
+            
+        </form>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Requested By</th>
+                    <th>Drink</th>
+                    <th>Cups</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model != null && Model.Rows.Count > 0)
+                {
+                    foreach (System.Data.DataRow row in Model.Rows)
+                    {
+                        string name = row.Table.Columns.Contains("Name") && row["Name"] != DBNull.Value
+                                      ? row["Name"].ToString()
+                                      : "N/A";
+
+                        string status = row["Status"].ToString();
+
+                        <tr>
+                            <td><strong>@name</strong></td>
+                            <td>@row["DrinkType"]</td>
+                            <td>@row["Cups"]</td>
+
+                            <td>
+                                @if (status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Completed</span>
+                                }
+                            </td>
+
+                            <td>
+                                @Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy HH:mm")
+                            </td>
+
+                            <!-- 🔥 ACTION COLUMN -->
+                            <td>
+
+                                <!-- COMPLETE -->
+                                @if (status == "Pending")
+                                {
+                                    <a href="/Request/Complete/@row["Id"]" class="btn btn-sm btn-success">
+                                        ✔
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">✔</span>
+                                }
+
+                                <!-- EDIT -->
+                                <a href="/Request/Edit/@row["Id"]" class="btn btn-sm btn-primary ms-1">
+                                    ✏️
+                                </a>
+
+                                <!-- DELETE -->
+                                <a href="/Request/Delete/@row["Id"]"
+                                   class="btn btn-sm btn-danger ms-1"
+                                   onclick="return confirm('Are you sure you want to delete this request?');">
+                                    🗑
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No Requests Found
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

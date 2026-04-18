@@ -1,0 +1,29 @@
+﻿<h2>📊 Consumption Chart (@ViewBag.Type)</h2>
+
+<canvas id="chaiChart" height="100"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var labels = [];
+    var data = [];
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <text>
+            labels.push("@row["DrinkType"]");
+            data.push(@row["Total"]);
+        </text>
+    }
+
+    new Chart(document.getElementById("chaiChart"), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Cups',
+                data: data
+            }]
+        }
+    });
+</script>
