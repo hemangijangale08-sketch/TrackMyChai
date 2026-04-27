@@ -47,8 +47,6 @@ ChaiTrackingSystem/
 
 ---
 ## For Demo of My project 
-you  Open this see   my project
-**this is for demo 
   Admin  dashboard has  Authentication is Chai@123
   User can eaasily access
 
