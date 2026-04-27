@@ -46,6 +46,11 @@ ChaiTrackingSystem/
 
 
 ---
+## For Demo of My project 
+you  Open this link and see  how my project this is for demo 
+For Authentication  user  can be easily access But For  Admin password  is Chai@123
+
+https://chai-tracker-ui--uforwebsites5.replit.app
 
 ## 💡 How It Works
 
